@@ -1,0 +1,11 @@
+# when external keyboard is pluged, disable internal one
+SUBSYSTEM=="input", ACTION=="add", \
+    ENV{ID_INPUT_KEYBOARD}=="1", \
+    RUN+="/usr/local/bin/internal_keyboard_management.sh disable", \
+    TEST=="power/control", \
+    ATTR{power/control}="on"
+
+# when external keyboard is un-plugged, enable internal one
+SUBSYSTEM=="input", ACTION=="remove", \
+    ENV{ID_INPUT_KEYBOARD}=="1", \
+    RUN+="/usr/local/bin/internal_keyboard_management.sh enable"
